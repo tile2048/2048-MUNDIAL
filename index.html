@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>2048 Mundial — World Cup tile puzzle</title>
+  <meta name="description" content="Play 2048 Mundial: slide national team shirts, merge two of the same country into the next one, and take a team all the way to the final tile.">
+
+  <link rel="canonical" href="https://tile2048.github.io/2048-MUNDIAL/">
+  <link rel="alternate" hreflang="en" href="https://tile2048.github.io/2048-MUNDIAL/">
+  <link rel="alternate" hreflang="es" href="https://tile2048.github.io/2048-MUNDIAL/es/">
+  <link rel="alternate" hreflang="x-default" href="https://tile2048.github.io/2048-MUNDIAL/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="2048 Mundial — World Cup tile puzzle">
+  <meta property="og:description" content="Play 2048 Mundial: slide national team shirts, merge two of the same country into the next one, and take a team all the way to the final tile.">
+  <meta property="og:url" content="https://tile2048.github.io/2048-MUNDIAL/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="es_ES">
+
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="format-detection" content="telephone=no" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "2048 Mundial",
+    "inLanguage": "en",
+    "url": "https://tile2048.github.io/2048-MUNDIAL/",
+    "description": "A football World Cup version of the 2048 sliding tile puzzle: merge equal national team shirts to climb the tournament."
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="heading">
+      <div class="scores-container">
+        <div class="score-container">
+          <p>
+            <span class="caption">SCORE</span><br>
+            <span class="score-points">0</span>
+            <div class="score-level tile-score-2"></div>
+          </p>
+        </div>
+        <div class="best-container">
+          <p>
+            <span class="caption">BEST</span><br>
+            <span class="best-points">0</span>
+            <div class="best-level tile-score-2"></div>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rank-wrapper"></div>
+    <h1 class="page-title">2048 Mundial: the World Cup tile puzzle</h1>
+
+    <nav class="lang-links"><span>English</span> <a href="es/" hreflang="es" lang="es">Español</a></nav>
+
+    <div class="above-game">
+      <a class="undo-button" onclick="handle_undo()">UNDO</a>
+      <a class="restart-button">RESET</a>
+    </div>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="keep-playing-button">Continue</a>
+          <a class="retry-button">Retry</a>
+          <div class="score-sharing"></div>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+      <div class="tile-container"></div>
+    </div>
+
+    <p class="game-explanation">
+      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two shirts of the same team touch, they <strong>advance a round!</strong><br>
+      Hit 'Z' to <a href="#" onclick="handle_undo()">take back one or more moves</a>.
+    </p>
+    <p class="game-about">
+      2048 Mundial puts eleven World Cup shirts on a 4×4 board, arranged as a ladder rather than a league table. Cameroon starts it at 2, then Costa Rica, England, Uruguay, the Netherlands, Nigeria, Germany, Argentina, Spain and Brazil, with Italy closing the run at 2048. Arrow keys or a swipe move every shirt at once; two of the same nation knit into the next shirt up and add points. Z takes back the last move, which helps when only one square is free. The game ends when no two neighbours can be joined, so leave a column open and plan two rounds ahead. Carry a shirt to Italy to win the cup.
+    </p>
+    <hr>
+    <p class="tile-legend"><strong class="important">Tile Legend:</strong></p>
+    <div class="legend-list">
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-2"></div></div>
+        <p>Cameroon</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-4"></div></div>
+        <p>Costa Rica</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-8"></div></div>
+        <p>England</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-16"></div></div>
+        <p>Uruguay</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-32"></div></div>
+        <p>Netherlands</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-64"></div></div>
+        <p>Nigeria</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-128"></div></div>
+        <p>Germany</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-256"></div></div>
+        <p>Argentina</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-512"></div></div>
+        <p>Spain</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-1024"></div></div>
+        <p>Brazil</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-2048"></div></div>
+        <p>Italy</p>
+      </div>
+    </div>
+    <hr>
+    <p class="disclaimer">
+    <strong class="important">Note:</strong> A fan-made variant of 2048, the original game by Gabriele Cirulli.
+    </p>
+    <hr>
+  </div>
+  <script src="js/seedrandom.js"></script>
+  <script src="js/bind_polyfill.js"></script>
+  <script src="js/classlist_polyfill.js"></script>
+  <script src="js/animframe_polyfill.js"></script>
+  <script>
+    // Assets and sentences of this page. The Spanish page sets ../ and its own words.
+    window.GAME_ROOT = "";
+
+    // Text that only appears once a game is running, in the language of this page.
+    window.PAGE_STRINGS = {
+      "game-won": "You win!",
+      "game-over": "Game over!",
+      "tweet1": "I scored ",
+      "tweet2": " at 2048-MUNDIAL #2048game #MUNDIAL",
+      "2": "Cameroon",
+      "4": "Costa Rica",
+      "8": "England",
+      "16": "Uruguay",
+      "32": "Netherlands",
+      "64": "Nigeria",
+      "128": "Germany",
+      "256": "Argentina",
+      "512": "Spain",
+      "1024": "Brazil",
+      "2048": "Italy"
+    };
+
+    function Localize(key) {
+      return window.PAGE_STRINGS.hasOwnProperty(String(key)) ? window.PAGE_STRINGS[String(key)] : String(key);
+    }
+  </script>
+  <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/html_actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/local_storage_manager.js"></script>
+  <script src="js/game_manager.js"></script>
+  <script src="js/application.js"></script>
+  <script>
+    window.twttr = (function (d,s,id) {
+      var t, js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+      js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+      return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+    }(document, "script", "twitter-wjs"));
+  </script>
+</body>
+</html>

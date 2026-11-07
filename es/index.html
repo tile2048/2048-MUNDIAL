@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>2048 Mundial — puzle de fichas de fútbol</title>
+  <meta name="description" content="Juega a 2048 Mundial: desliza camisetas de selecciones, une dos del mismo país en la siguiente y lleva a un equipo hasta la ficha final.">
+
+  <link rel="canonical" href="https://tile2048.github.io/2048-MUNDIAL/es/">
+  <link rel="alternate" hreflang="en" href="https://tile2048.github.io/2048-MUNDIAL/">
+  <link rel="alternate" hreflang="es" href="https://tile2048.github.io/2048-MUNDIAL/es/">
+  <link rel="alternate" hreflang="x-default" href="https://tile2048.github.io/2048-MUNDIAL/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="2048 Mundial — puzle de fichas de fútbol">
+  <meta property="og:description" content="Juega a 2048 Mundial: desliza camisetas de selecciones, une dos del mismo país en la siguiente y lleva a un equipo hasta la ficha final.">
+  <meta property="og:url" content="https://tile2048.github.io/2048-MUNDIAL/es/">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_US">
+
+  <link href="../style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="apple-touch-icon" href="../meta/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="format-detection" content="telephone=no" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "2048 Mundial",
+    "inLanguage": "es",
+    "url": "https://tile2048.github.io/2048-MUNDIAL/es/",
+    "description": "Versión futbolera del puzle de fichas 2048: une camisetas de la misma selección para avanzar en el torneo."
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="heading">
+      <div class="scores-container">
+        <div class="score-container">
+          <p>
+            <span class="caption">PUNTUACIÓN</span><br>
+            <span class="score-points">0</span>
+            <div class="score-level tile-score-2"></div>
+          </p>
+        </div>
+        <div class="best-container">
+          <p>
+            <span class="caption">MEJOR</span><br>
+            <span class="best-points">0</span>
+            <div class="best-level tile-score-2"></div>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rank-wrapper"></div>
+    <h1 class="page-title">2048 Mundial: el puzle de las selecciones</h1>
+
+    <nav class="lang-links"><a href="../" hreflang="en" lang="en">English</a> <span>Español</span></nav>
+
+    <div class="above-game">
+      <a class="undo-button" onclick="handle_undo()">DESHACER</a>
+      <a class="restart-button">REINICIAR</a>
+    </div>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="keep-playing-button">Continuar</a>
+          <a class="retry-button">Reintentar</a>
+          <div class="score-sharing"></div>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+      <div class="tile-container"></div>
+    </div>
+
+    <p class="game-explanation">
+      <strong class="important">Cómo jugar:</strong> usa las <strong>teclas de flecha</strong> para mover las fichas. Cuando dos camisetas de la misma selección se tocan, ¡pasan <strong>de ronda!</strong><br>
+      Pulsa 'Z' para <a href="#" onclick="handle_undo()">deshacer una o varias jugadas</a>.
+    </p>
+    <p class="game-about">
+      2048 Mundial coloca once camisetas de selecciones en un tablero de 4×4, ordenadas como una escala y no como una tabla de posiciones. Camerún abre la serie en el 2; siguen Costa Rica, Inglaterra, Uruguay, Países Bajos, Nigeria, Alemania, Argentina, España y Brasil, e Italia cierra en el 2048. Las flechas o un deslizamiento mueven todas las camisetas a la vez; dos de la misma selección se unen en la siguiente y suman puntos. La Z deshace la última jugada, útil cuando queda una sola casilla libre. La partida acaba cuando no quedan vecinas que unir, así que deja una columna abierta y piensa dos rondas por delante. Lleva una camiseta hasta Italia para ganar la copa.
+    </p>
+    <hr>
+    <p class="tile-legend"><strong class="important">Leyenda de fichas:</strong></p>
+    <div class="legend-list">
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-2"></div></div>
+        <p>Camerún</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-4"></div></div>
+        <p>Costa Rica</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-8"></div></div>
+        <p>Inglaterra</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-16"></div></div>
+        <p>Uruguay</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-32"></div></div>
+        <p>Países Bajos</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-64"></div></div>
+        <p>Nigeria</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-128"></div></div>
+        <p>Alemania</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-256"></div></div>
+        <p>Argentina</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-512"></div></div>
+        <p>España</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-1024"></div></div>
+        <p>Brasil</p>
+      </div>
+      <div class="legend-row">
+        <div class="legend-grid"><div class="legend-cell tile-score-2048"></div></div>
+        <p>Italia</p>
+      </div>
+    </div>
+    <hr>
+    <p class="disclaimer">
+    <strong class="important">Nota:</strong> Una variante creada por aficionados de 2048, el juego original de Gabriele Cirulli.
+    </p>
+    <hr>
+  </div>
+  <script src="../js/seedrandom.js"></script>
+  <script src="../js/bind_polyfill.js"></script>
+  <script src="../js/classlist_polyfill.js"></script>
+  <script src="../js/animframe_polyfill.js"></script>
+  <script>
+    // Assets and sentences of this page. The English page sits at the repo root.
+    window.GAME_ROOT = "../";
+
+    // Text that only appears once a game is running, in the language of this page.
+    window.PAGE_STRINGS = {
+      "game-won": "¡Ganaste!",
+      "game-over": "¡Fin del juego!",
+      "tweet1": "Conseguí ",
+      "tweet2": " en 2048-MUNDIAL #2048game #MUNDIAL",
+      "2": "Camerún",
+      "4": "Costa Rica",
+      "8": "Inglaterra",
+      "16": "Uruguay",
+      "32": "Países Bajos",
+      "64": "Nigeria",
+      "128": "Alemania",
+      "256": "Argentina",
+      "512": "España",
+      "1024": "Brasil",
+      "2048": "Italia"
+    };
+
+    function Localize(key) {
+      return window.PAGE_STRINGS.hasOwnProperty(String(key)) ? window.PAGE_STRINGS[String(key)] : String(key);
+    }
+  </script>
+  <script src="../js/keyboard_input_manager.js"></script>
+  <script src="../js/html_actuator.js"></script>
+  <script src="../js/grid.js"></script>
+  <script src="../js/tile.js"></script>
+  <script src="../js/local_storage_manager.js"></script>
+  <script src="../js/game_manager.js"></script>
+  <script src="../js/application.js"></script>
+  <script>
+    window.twttr = (function (d,s,id) {
+      var t, js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+      js.src="https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+      return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+    }(document, "script", "twitter-wjs"));
+  </script>
+</body>
+</html>
